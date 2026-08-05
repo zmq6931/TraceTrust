@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TraceTrust</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 32 32" width="28" height="28">
+          <circle cx="16" cy="16" r="14" fill="none" stroke="#4f46e5" stroke-width="2.5"/>
+          <path d="M10 16 L14 20 L22 12" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1>TraceTrust</h1>
+      </div>
+      <span class="badge" id="badge">Analyzing...</span>
+    </header>
+
+    <!-- UGC Warning -->
+    <div class="ugc-warning" id="ugcWarning" style="display:none;">
+      <span class="ugc-icon">⚠️</span>
+      <span class="ugc-text">此页面为用户生成内容（UGC）平台，内容由个人发布，平台不对内容真实性负责。请核实发布者身份与信息来源。</span>
+    </div>
+
+    <!-- Main Score -->
+    <section class="score-section">
+      <div class="score-ring" id="scoreRing">
+        <svg viewBox="0 0 120 120" width="120" height="120">
+          <circle class="ring-bg" cx="60" cy="60" r="52"/>
+          <circle class="ring-progress" cx="60" cy="60" r="52" id="progressCircle"/>
+        </svg>
+        <div class="score-value" id="scoreValue">--</div>
+      </div>
+      <div class="score-label" id="scoreLabel">点击页面后开始分析</div>
+    </section>
+
+    <!-- Detail Breakdown -->
+    <section class="details" id="details">
+      <div class="detail-item" id="detail-source">
+        <div class="detail-icon">🏛️</div>
+        <div class="detail-info">
+          <span class="detail-name">来源权威</span>
+          <span class="detail-score" id="sourceScore">--</span>
+        </div>
+        <div class="detail-bar"><div class="detail-fill" id="sourceFill"></div></div>
+      </div>
+      <div class="detail-item" id="detail-https">
+        <div class="detail-icon">🔒</div>
+        <div class="detail-info">
+          <span class="detail-name">安全连接</span>
+          <span class="detail-score" id="httpsScore">--</span>
+        </div>
+        <div class="detail-bar"><div class="detail-fill" id="httpsFill"></div></div>
+      </div>
+      <div class="detail-item" id="detail-citations">
+        <div class="detail-icon">📎</div>
+        <div class="detail-info">
+          <span class="detail-name">引用溯源</span>
+          <span class="detail-score" id="citationScore">--</span>
+        </div>
+        <div class="detail-bar"><div class="detail-fill" id="citationFill"></div></div>
+      </div>
+      <div class="detail-item" id="detail-depth">
+        <div class="detail-icon">📊</div>
+        <div class="detail-info">
+          <span class="detail-name">内容深度</span>
+          <span class="detail-score" id="depthScore">--</span>
+        </div>
+        <div class="detail-bar"><div class="detail-fill" id="depthFill"></div></div>
+      </div>
+      <div class="detail-item" id="detail-author">
+        <div class="detail-icon">✍️</div>
+        <div class="detail-info">
+          <span class="detail-name">作者署名</span>
+          <span class="detail-score" id="authorScore">--</span>
+        </div>
+        <div class="detail-bar"><div class="detail-fill" id="authorFill"></div></div>
+      </div>
+    </section>
+
+    <!-- Source Info -->
+    <section class="source-info" id="sourceInfo">
+      <div class="source-row">
+        <span class="source-label">域名</span>
+        <span class="source-value" id="domainName">--</span>
+      </div>
+      <div class="source-row">
+        <span class="source-label">发现引用</span>
+        <span class="source-value" id="citationCount">--</span>
+      </div>
+      <div class="source-row">
+        <span class="source-label">外部链接</span>
+        <span class="source-value" id="externalLinks">--</span>
+      </div>
+      <div class="source-divider"></div>
+      <div class="source-row">
+        <span class="source-label">Meta Author</span>
+        <span class="source-value" id="authorMeta">--</span>
+      </div>
+      <div class="source-row">
+        <span class="source-label">Schema Author</span>
+        <span class="source-value" id="authorSchema">--</span>
+      </div>
+      <div class="source-row">
+        <span class="source-label">页面署名元素</span>
+        <span class="source-value" id="authorEl">--</span>
+      </div>
+      <div class="source-row">
+        <span class="source-label">发布时间</span>
+        <span class="source-value" id="authorDate">--</span>
+      </div>
+      <div class="source-divider"></div>
+      <div class="source-row">
+        <span class="source-label">字数统计</span>
+        <span class="source-value" id="wordCount">--</span>
+      </div>
+      <div class="source-row">
+        <span class="source-label">标题结构</span>
+        <span class="source-value" id="headingInfo">--</span>
+      </div>
+      <div class="source-row">
+        <span class="source-label">图片/表格</span>
+        <span class="source-value" id="mediaInfo">--</span>
+      </div>
+    </section>
+
+    <!-- Score Formula -->
+    <section class="formula" id="formula">
+      <div class="formula-title">📐 评分公式</div>
+      <div class="formula-text" id="formulaText">--</div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <button class="btn-refresh" id="btnRefresh">🔄 重新分析</button>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
