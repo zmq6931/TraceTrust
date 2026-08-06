@@ -195,6 +195,15 @@ function scoreAuthor(data) {
   // Publication date present
   if (data.hasPublishedTime) score += 20;
 
+  // Institutional authorship: known trusted domains without personal bylines
+  // still get credit for organizational authority (wiki, docs, etc.)
+  var hostname = data.hostname || '';
+  var isTrustedDomain = false;
+  for (var i = 0; i < KNOWN_TRUSTED_DOMAINS.length; i++) {
+    if (hostname.endsWith(KNOWN_TRUSTED_DOMAINS[i])) { isTrustedDomain = true; break; }
+  }
+  if (isTrustedDomain && score < 50) score = 50;
+
   // No author at all is suspicious
   if (score <= 20) score = 10;
 
@@ -479,7 +488,7 @@ function renderResults(data) {
   document.getElementById('scoreValue').textContent = totalScore;
 
   const label = document.getElementById('scoreLabel');
-  if (totalScore >= 70) label.textContent = '该页面信息可信度较高';
+  if (totalScore >= 65) label.textContent = '该页面信息可信度较高';
   else if (totalScore >= 40) label.textContent = '该页面信息可信度一般，请交叉验证';
   else label.textContent = '该页面信息可信度较低，请谨慎采信';
 
