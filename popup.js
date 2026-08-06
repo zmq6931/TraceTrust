@@ -162,11 +162,11 @@ function scoreHTTPS(protocol) {
 function scoreCitations(data) {
   let score = 0;
 
-  // Reference-list items
-  score += Math.min((data.refListItems || 0) * 5, 40);
+  // Reference-list items — generous cap for well-cited pages
+  score += Math.min((data.refListItems || 0) * 2, 50);
 
   // Footnote-style links
-  score += Math.min((data.supFootnotes || 0) * 5, 20);
+  score += Math.min((data.supFootnotes || 0) * 5, 25);
 
   // Blockquote count
   score += Math.min((data.blockquoteCount || 0) * 5, 15);
